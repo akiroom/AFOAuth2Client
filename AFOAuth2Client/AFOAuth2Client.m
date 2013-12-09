@@ -92,10 +92,10 @@ static NSMutableDictionary * AFKeychainQueryDictionaryWithIdentifier(NSString *i
 {
     // See http://tools.ietf.org/html/rfc6749#section-7.1
     if ([[type lowercaseString] isEqualToString:@"bearer"]) {
-        AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
+        if (!self.requestSerializer) {
+            self.requestSerializer = [AFHTTPRequestSerializer serializer];
+        }
         [serializer setValue:[NSString stringWithFormat:@"Bearer %@", token] forHTTPHeaderField:@"Authorization"];
-        self.requestSerializer = serializer;
-        
     }
 }
 
